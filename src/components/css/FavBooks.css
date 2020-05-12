@@ -1,0 +1,39 @@
+.favBooks {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.err {
+  padding: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+  color: #fff;
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.heading {
+  margin-top: 20px;
+  color: #fff;
+  font-size: 2rem;
+  font-family: "Montserrat", sans-serif;
+}
+/* body {
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+} */
+
+.favBooks .botton {
+  visibility: hidden;
+}
+
+.favBooks .details {
+  visibility: visible;
+}
+/* .manage-buttons .details {
+  visibility: visible;
+} */
