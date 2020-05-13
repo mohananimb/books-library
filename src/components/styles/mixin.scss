@@ -1,0 +1,46 @@
+
+@mixin inputs {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 90%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+@mixin forms {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}
+
+@mixin logRegForm($ht) {
+  box-shadow: 0px 5px 20px #dddddd;
+  height: $ht;
+  padding: 20px;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin books {
+  border-radius: 10px;
+  box-shadow: 0px 5px 20px rgb(71, 71, 71);
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  align-items: center;
+  min-width: 20%;
+}

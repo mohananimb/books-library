@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -19,7 +19,7 @@ const App = () => {
         <React.Fragment>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
+            {!localStorage.token ? <Route path="/login" component={Login} /> : null} 
             <Route
               path="/register"
               component={props => <Register {...props} />}

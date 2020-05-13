@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Book from "./Books";
-import "./css/FavBooks.css";
+import "./styles/FavBooks.scss"
 import { Redirect } from "react-router-dom";
 import Navbar2 from "./Navbar2";
 import { Link } from "react-router-dom";
@@ -23,7 +23,6 @@ class FavBooks extends Component {
         redirect: true
       });
     };
-    // console.log(this.props.favBookReducer);
 
     return (
       <div>
@@ -71,7 +70,7 @@ class FavBooks extends Component {
           </div>
         ) : (
           <div>
-            <Redirect to="/login" />
+            <Redirect to="/" />
           </div>
         )}
       </div>

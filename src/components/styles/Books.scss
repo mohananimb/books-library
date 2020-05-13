@@ -1,0 +1,21 @@
+@import "mixin";
+@import "variables";
+
+.books {
+  @include books;
+}
+
+.btn .remove {
+  visibility: $visibility;
+}
+
+.manage-buttons .details {
+  visibility: $visibility;
+}
+
+.fetchBook {
+  display: $display;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 5px;
+}

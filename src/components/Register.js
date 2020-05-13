@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
-import "./css/Register.css";
+import "./styles/Register.scss";
 import CryptoJS from "crypto-js";
+import swal from '@sweetalert/with-react'
 
 export default class Register extends Component {
   state = {
@@ -17,7 +18,6 @@ export default class Register extends Component {
 
   userValidation = () => {
     const { email, password, cpassword } = this.state;
-    // console.log(email, password, cpassword);
 
     if (email.includes("@") && email.includes(".")) {
       if (password.length > 8) {
@@ -44,10 +44,6 @@ export default class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // if (localStorage.getItem("token")) {
-    //   alert("Your are already registered! Please Sign In");
-    //   this.setState({ redirect: true });
-    // } else {
 
     if (this.userValidation()) {
       fetch("https://reqres.in/api/register", {
@@ -59,12 +55,12 @@ export default class Register extends Component {
       }).then(res => {
         let status = res.status;
         if (status === 400) {
-          alert("Unauthorised User");
+          swal("Sorry!", "You're not authorised user, you can't register!", "danger");
           this.setState({ email: "", password: "", cpassword: "" });
         } else if (status === 200) {
           res.json().then(data => {
             if (localStorage.hasOwnProperty(`token${data.id}`)) {
-              alert("You are already registered! Please Sign In");
+              swal("ohh!", "You're alredy registered, Please Login!", "warning");
               this.setState({ redirect: true });
             } else {
               let info = {
@@ -74,7 +70,7 @@ export default class Register extends Component {
                 password: CryptoJS.MD5(this.state.password).toString()
               };
               localStorage.setItem(`token${data.id}`, JSON.stringify(info));
-              alert("You're Signed Up Successfully! Please Login");
+              swal("Great!", "You're Signed Up Successfully! Please Login", "succes");
               this.setState({
                 redirect: true,
                 email: "",
@@ -94,8 +90,6 @@ export default class Register extends Component {
         });
       }, 2000);
     }
-
-    // }
   };
 
   handleChange = e => {
@@ -105,7 +99,6 @@ export default class Register extends Component {
   };
 
   render() {
-    //   console.log(CryptoJS.MD5("Test").toString());
 
     if (this.state.redirect) {
       return <Redirect to="/login" />;
@@ -124,7 +117,6 @@ export default class Register extends Component {
               autoComplete="off"
               placeholder="Enter your E-mail"
               value={this.state.email}
-              // id={this.state.emailErr && "emailErr"}
             />
             <span id="email-error" className="text-danger font-weight-bold">
               {this.state.emailErr}
@@ -138,7 +130,6 @@ export default class Register extends Component {
               autoComplete="off"
               placeholder="Enter your Password"
               value={this.state.password}
-              // id={this.state.passwordErr && "passErr"}
             />
             <span id="password-error" className="text-danger font-weight-bold">
               {this.state.passwordErr}
@@ -152,7 +143,6 @@ export default class Register extends Component {
               autoComplete="off"
               placeholder="Confirm your Password"
               value={this.state.cpassword}
-              // id={this.state.cpasswordErr && "cpassErr"}
             />
             <span id="password-error" className="text-danger font-weight-bold">
               {this.state.cpasswordErr}

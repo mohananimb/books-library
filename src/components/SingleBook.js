@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/SingleBook.css";
+import "./styles/SingleBook.scss";
 import Navbar2 from "./Navbar2";
 import { Redirect } from "react-router-dom";
 
@@ -13,7 +13,6 @@ export default class SingleBook extends Component {
     fetch("https://5eb82be6bb17460016b326b8.mockapi.io/favorite-books")
       .then(res => res.json())
       .then(data => {
-        // console.log(data);
         this.setState({
           book: data.filter(item => item.book_id === this.props.match.params.id)
         });
@@ -21,7 +20,6 @@ export default class SingleBook extends Component {
   }
 
   render() {
-    // console.log(this.state.book);
     const { book } = this.state;
     const lg = () => {
       localStorage.removeItem("token");
@@ -89,7 +87,7 @@ export default class SingleBook extends Component {
                   </div>
                 </div>
               ) : (
-                <Redirect to="/login" />
+                <Redirect to="/" />
               )}
             </div>
           )}

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
-import "./css/Login.css";
+import "./styles/Login.scss";
 import { Redirect } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import swal from '@sweetalert/with-react'
 
 export default class Login extends Component {
   state = {
@@ -29,37 +30,35 @@ export default class Login extends Component {
     }).then(res => {
       if (res.status === 200) {
         res.json().then(data => {
-          for (let i = 1; i <= localStorage.length; i++) {
-            let temp = localStorage.getItem("token" + i);
-            if (temp) {
-              // console.log(JSON.parse(temp).password);
-              let email = JSON.parse(temp).email;
-              let password = JSON.parse(temp).password;
-              let currentPass = CryptoJS.MD5(this.state.password).toString();
-              if (email === this.state.email) {
-                if (password === currentPass) {
-                  localStorage.setItem("token", JSON.stringify(data.token));
-                  this.setState({
-                    isLoggedIn: true
-                  });
-                  break;
-                } else {
+          if(localStorage.length > 0) {
+
+            for(let key in localStorage) {
+              if(JSON.parse(localStorage[key]).email === this.state.email) {
+                let temp = JSON.parse(localStorage[key])
+                if(temp.email === this.state.email) {
+                  if(temp.password === CryptoJS.MD5(this.state.password).toString()) {
+                    localStorage.setItem("token", JSON.stringify(data.token));
+                          this.setState({
+                            isLoggedIn: true
+                          });
+                  }
+                }else {
                   this.setState({
                     email: "",
                     password: ""
                   });
-                  alert("Invalid Password!");
-                  break;
+                  swal("Sorry!", "Invalid Username or Password!", "danger");
                 }
-              } else {
-                this.setState({
-                  email: "",
-                  password: ""
-                });
-                alert("Invalid Email!");
                 break;
               }
+              
             }
+          }else {
+            this.setState({
+              email: "",
+              password: ""
+            });
+        swal("Sorry!", "You have to register before login!", "danger");
           }
         });
       } else {
@@ -67,13 +66,12 @@ export default class Login extends Component {
           email: "",
           password: ""
         });
-        alert("Invalid Username or Password");
+        swal("Sorry!", "You are not authorised to this site!", "danger");
       }
     });
   };
 
   render() {
-    // let token = JSON.parse(localStorage.getItem("token"));
 
     return (
       <div className="di">

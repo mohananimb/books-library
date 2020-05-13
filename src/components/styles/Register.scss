@@ -1,0 +1,29 @@
+@import "mixin";
+@import "variables";
+
+.form {
+  @include forms;
+}
+
+.reg {
+  @include logRegForm(50vh);
+}
+
+.input {
+  @include inputs;
+}
+
+div {
+  text-align: center;
+}
+
+#emailErr {
+  border: 1px solid red;
+}
+
+#passErr {
+  border: 1px solid red;
+}
+#cpassErr {
+  border: 1px solid red;
+}

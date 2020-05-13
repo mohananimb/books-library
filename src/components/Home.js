@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
-import "./css/Books.css";
+import "./styles/Books.scss";
 import Book from "./Books";
 import { connect } from "react-redux";
 import { fetchBooks } from "../redux/actions/booksAction";

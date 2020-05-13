@@ -1,11 +1,11 @@
 import React from "react";
-import "./css/Books.css";
+import "./styles/Books.scss";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import swal from '@sweetalert/with-react'
 
 const Books = ({ name, img, author, released, id }) => {
   const handleClick = e => {
-    // console.log(id);
 
     if (localStorage.token) {
       let fevBook = {
@@ -16,7 +16,6 @@ const Books = ({ name, img, author, released, id }) => {
         released: released,
         img: img
       };
-      // console.log(e.target.id);
       fetch("https://5eb82be6bb17460016b326b8.mockapi.io/favorite-books", {
         method: "POST",
         headers: {
@@ -24,9 +23,7 @@ const Books = ({ name, img, author, released, id }) => {
         },
         body: JSON.stringify(fevBook)
       }).then(res => res.json());
-      alert("Succesfully Added");
-    } else {
-      alert("Please login first!");
+      swal("Awesome!", "You have just added your book to favorite list!", "success");
     }
   };
 
