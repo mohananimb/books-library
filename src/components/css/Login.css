@@ -30,3 +30,11 @@
 .di {
   text-align: center;
 }
+
+input {
+  border: 1px solid red;
+}
+
+span {
+  color: red;
+}

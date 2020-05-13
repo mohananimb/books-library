@@ -24,7 +24,7 @@ export default function Navbar2(props) {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
               <Link to="/" className="nav-link">
-                Home
+                <i className="fas fa-home fa-2x"></i>
               </Link>
             </li>
           </ul>

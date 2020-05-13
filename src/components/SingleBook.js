@@ -25,9 +25,6 @@ export default class SingleBook extends Component {
     const { book } = this.state;
     const lg = () => {
       localStorage.removeItem("token");
-      this.setState({
-        redirect: true
-      });
     };
 
     const del = e => {
@@ -39,54 +36,64 @@ export default class SingleBook extends Component {
       )
         .then(res => res.json())
         .then(data => {
-          window.location.reload();
+          this.setState({
+            redirect: true
+          });
         });
     };
 
     return (
       <div>
-        {localStorage.token ? (
-          <div>
-            <Navbar2 log={lg} />
-            <div className="fetchBook">
-              {book.map((item, i) => (
-                <div key={i} className="row col-lg-3 col-md-6">
-                  <div className="books">
-                    <div className="card">
-                      <img
-                        src={item.img}
-                        className="card-img-top"
-                        alt={item.name}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">
-                          <strong>Title:</strong> {item.name}
-                        </h5>
-                        <p className="card-text">
-                          <strong>Author:</strong> {item.author}
-                        </p>
-                        <p className="card-text">
-                          <strong>Released On:</strong>{" "}
-                          {item.released.substr(0, 10)}
-                        </p>
+        <div>
+          {this.state.redirect ? (
+            <Redirect to="/favorite-books" />
+          ) : (
+            <div>
+              {localStorage.token ? (
+                <div className="singleBook">
+                  <Navbar2 log={lg} />
+                  <div className="fetchBook">
+                    {book.map((item, i) => (
+                      <div key={i} className="row col-lg-3 col-md-6">
+                        <div className="books">
+                          <div className="card">
+                            <img
+                              src={item.img}
+                              className="card-img-top"
+                              alt={item.name}
+                            />
+                            <div className="card-body">
+                              <h5 className="card-title">
+                                <strong>Title:</strong> {item.name}
+                              </h5>
+                              <p className="card-text">
+                                <strong>Author:</strong> {item.author}
+                              </p>
+                              <p className="card-text">
+                                <strong>Released On:</strong>{" "}
+                                {item.released.substr(0, 10)}
+                              </p>
+                            </div>
+                          </div>
+                          <button
+                            key={i}
+                            onClick={del}
+                            id={item.id}
+                            className="btn btn-danger btn-block"
+                          >
+                            Remove from Favorites
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <button
-                      key={i}
-                      onClick={del}
-                      id={item.id}
-                      className="btn btn-danger btn-block"
-                    >
-                      Remove from Favorites
-                    </button>
+                    ))}
                   </div>
                 </div>
-              ))}
+              ) : (
+                <Redirect to="/login" />
+              )}
             </div>
-          </div>
-        ) : (
-          <Redirect to="/login" />
-        )}
+          )}
+        </div>
       </div>
     );
   }

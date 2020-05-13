@@ -18,7 +18,7 @@ export const fetchFav = () => dispatch => {
     .then(data => {
       dispatch({
         type: FAVORITE,
-        payload: data
+        payload: data.filter(item => item.user_id === localStorage.token)
       });
     });
 };

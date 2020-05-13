@@ -30,3 +30,14 @@
 div {
   text-align: center;
 }
+
+#emailErr {
+  border: 1px solid red;
+}
+
+#passErr {
+  border: 1px solid red;
+}
+#cpassErr {
+  border: 1px solid red;
+}

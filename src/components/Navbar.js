@@ -23,20 +23,14 @@ const Navbar = () => {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
             <Link to="/" className="nav-link">
-              Home
+              <i className="fas fa-home fa-2x"></i>
             </Link>
           </li>
         </ul>
-        <Link
-          to="/register"
-          className="btn btn-outline-light btn-dark ml-2"
-        >
+        <Link to="/register" className="btn btn-outline-light btn-dark ml-2">
           Register
         </Link>
-        <Link
-          to="/login"
-          className="btn btn-outline-light btn-dark ml-2"
-        >
+        <Link to="/login" className="btn btn-outline-light btn-dark ml-2">
           Login
         </Link>
       </div>

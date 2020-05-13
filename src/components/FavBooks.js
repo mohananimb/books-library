@@ -23,19 +23,23 @@ class FavBooks extends Component {
         redirect: true
       });
     };
+    // console.log(this.props.favBookReducer);
 
     return (
       <div>
         {localStorage.token ? (
           <div>
             {this.props.favBookReducer.length === 0 ? (
-              <div className="err">
-                <h1>
-                  Oh! You have not added any book to your your favorite list
-                </h1>
-                <Link to="/" className="btn btn-warning btn-block my-3">
-                  Let's Add
-                </Link>
+              <div>
+                <Navbar2 log={lg} />
+                <div className="err">
+                  <h1>
+                    Ohh! You have not added any book to your favorite list
+                  </h1>
+                  <Link to="/" className="btn btn-warning btn-block my-3 lnk">
+                    <p className="para">Let's Add</p>
+                  </Link>
+                </div>
               </div>
             ) : (
               <div>

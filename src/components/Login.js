@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navbar from "./Navbar";
 import "./css/Login.css";
 import { Redirect } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 export default class Login extends Component {
   state = {
@@ -28,18 +29,46 @@ export default class Login extends Component {
     }).then(res => {
       if (res.status === 200) {
         res.json().then(data => {
-          localStorage.setItem("token", JSON.stringify(data.token));
-          this.setState({
-            isLoggedIn: true
-          });
+          for (let i = 1; i <= localStorage.length; i++) {
+            let temp = localStorage.getItem("token" + i);
+            if (temp) {
+              // console.log(JSON.parse(temp).password);
+              let email = JSON.parse(temp).email;
+              let password = JSON.parse(temp).password;
+              let currentPass = CryptoJS.MD5(this.state.password).toString();
+              if (email === this.state.email) {
+                if (password === currentPass) {
+                  localStorage.setItem("token", JSON.stringify(data.token));
+                  this.setState({
+                    isLoggedIn: true
+                  });
+                  break;
+                } else {
+                  this.setState({
+                    email: "",
+                    password: ""
+                  });
+                  alert("Invalid Password!");
+                  break;
+                }
+              } else {
+                this.setState({
+                  email: "",
+                  password: ""
+                });
+                alert("Invalid Email!");
+                break;
+              }
+            }
+          }
         });
       } else {
+        this.setState({
+          email: "",
+          password: ""
+        });
         alert("Invalid Username or Password");
       }
-      this.setState({
-        email: "",
-        password: ""
-      });
     });
   };
 
