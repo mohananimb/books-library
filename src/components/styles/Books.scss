@@ -5,12 +5,16 @@
   @include books;
 }
 
-.btn .remove {
-  visibility: $visibility;
+.btn {
+  .remove {
+    visibility: $visibility;
+  }
 }
 
-.manage-buttons .details {
-  visibility: $visibility;
+.manage-buttons {
+  .details {
+    visibility: $visibility;
+  }
 }
 
 .fetchBook {

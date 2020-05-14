@@ -6,8 +6,8 @@
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 5px;
-  height: 85vh;
-  height: 100%;
+  // height: 83vh;
+  // height: 100%;
 }
 
 .lnk {
@@ -17,9 +17,7 @@
   padding: 5px;
 }
 
-.para {
-  margin: 5px;
-}
+
 
 .err {
   padding: 20%;
@@ -31,6 +29,10 @@
   color: #fff;
   font-size: 1.5rem;
   font-family: $fontFamily;
+
+  .para {
+    margin: 5px;
+  }
 }
 
 .heading {
@@ -40,20 +42,32 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.favBooks {
+  .details {
+    visibility: visible;
+  }
 
-.fb {
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  // background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+  .botton {
+    visibility: $visibility;
+  }
 }
 
-.favBooks .botton {
-  visibility: $visibility;
-}
 
-.favBooks .details {
-  visibility: visible;
-}
 
 /* .manage-buttons .details {
   visibility: visible;
 } */
+
+@media only screen and (max-width:785px) {
+  .err {
+    padding: 2%;
+    @include center;
+    height: 100vh;
+    flex-direction: column;
+    color: #fff;
+    // font-size: 1.5rem;
+    font-family: $fontFamily;
+    font-size: 3px;
+
+  }
+}

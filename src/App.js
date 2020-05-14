@@ -19,7 +19,7 @@ const App = () => {
         <React.Fragment>
           <Switch>
             <Route exact path="/" component={Home} />
-            {!localStorage.token ? <Route path="/login" component={Login} /> : null} 
+             <Route path="/login" component={Login} />
             <Route
               path="/register"
               component={props => <Register {...props} />}

@@ -3,10 +3,12 @@ import "./styles/Books.scss";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import swal from '@sweetalert/with-react'
+import {throttle} from "./Throttle"
 
 const Books = ({ name, img, author, released, id }) => {
-  const handleClick = e => {
 
+  const handleClick = e => {
+    
     if (localStorage.token) {
       let fevBook = {
         book_id: id,
@@ -26,6 +28,8 @@ const Books = ({ name, img, author, released, id }) => {
       swal("Awesome!", "You have just added your book to favorite list!", "success");
     }
   };
+  
+  const main = throttle(handleClick, 3000);
 
   return (
     <div className="row col-lg-3 col-md-6">
@@ -48,7 +52,7 @@ const Books = ({ name, img, author, released, id }) => {
               <Button
                 title="Add to Favorite"
                 class="btn btn-dark btn-block botton"
-                func={handleClick}
+                func={main}
               />
               <Link className="btn btn-dark details" to={`/favorite-books/${id}`}>Details</Link>
             </div>

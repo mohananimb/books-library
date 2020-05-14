@@ -1,11 +1,19 @@
-.cd {
-    width: 50%;
-    height: 45vh;
-    margin: 10% 25% 10% 25%
-}
+// .cd {
+//     width: 50%;
+//     height: 45vh;
+//     margin: 10% 25% 10% 25%
+// }
 
 /* .pd {
     display: flex;
     align-items: center;
     justify-content: center;
 } */
+
+.singleBook {
+    .fetchBook {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

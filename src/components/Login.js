@@ -72,7 +72,7 @@ export default class Login extends Component {
   };
 
   render() {
-
+    
     return (
       <div className="di">
         {this.state.isLoggedIn ? <Redirect to="/user" /> : null}
