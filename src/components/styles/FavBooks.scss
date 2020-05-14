@@ -6,8 +6,14 @@
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 5px;
-  // height: 83vh;
-  // height: 100%;
+
+  .details {
+  display: inline-block
+  }
+
+  .botton {
+    display: $visibility;
+  }
 }
 
 .lnk {
@@ -15,10 +21,8 @@
   @include center;
   height: 55px;
   padding: 5px;
+
 }
-
-
-
 .err {
   padding: 20%;
   display: $display;
@@ -42,15 +46,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.favBooks {
-  .details {
-    visibility: visible;
-  }
-
-  .botton {
-    visibility: $visibility;
-  }
-}
 
 
 

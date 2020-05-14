@@ -70,7 +70,7 @@ export default class Register extends Component {
                 password: CryptoJS.MD5(this.state.password).toString()
               };
               localStorage.setItem(`token${data.id}`, JSON.stringify(info));
-              swal("Great!", "You're Signed Up Successfully! Please Login", "succes");
+              swal("Great!", "You're Signed Up Successfully! Please Login", "success");
               this.setState({
                 redirect: true,
                 email: "",

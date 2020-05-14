@@ -50,7 +50,6 @@ class FavBooks extends Component {
                     {this.props.favBookReducer.map((book, i) => {
                       if (book.user_id === localStorage.token) {
                         return (
-                          <React.Fragment>
                             <Book
                               key={book.id}
                               name={book.name}
@@ -59,8 +58,9 @@ class FavBooks extends Component {
                               img={book.img}
                               id={book.book_id}
                             />
-                          </React.Fragment>
                         );
+                      }else {
+                        return null;
                       }
                     })}
                   </div>
