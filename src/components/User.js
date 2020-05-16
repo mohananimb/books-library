@@ -35,7 +35,7 @@ export default function User() {
         <Navbar2 log={logout} />
         <div className="explore">
         <h1>Hello!</h1>
-        {user ?<img src={user[0].avatar}/> : null }
+        {user ?<img src={user[0].avatar} alt ={user[0].first_name}/> : null }
           {user ? <p className="text-warning">{user[0].first_name} {user[0].last_name}</p> : null}
           <p>Welcome to eBook!</p>
           <Link to="/favorite-books" className="btn btn-warning ">

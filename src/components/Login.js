@@ -18,12 +18,28 @@ export default class Login extends Component {
     });
   };
 
+   IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+
+
 
    findUSer (mail) {
     let key, result = [];
     for (key in localStorage) {
       if (localStorage.hasOwnProperty(key)) {
 
+        console.log(this.IsJsonString(localStorage[key]));
+        
+
+        if(this.IsJsonString(localStorage[key])) {
+          
       let j = JSON.parse(localStorage[key])
       if(j.email) {
           if(j.email === mail) { 
@@ -34,7 +50,7 @@ export default class Login extends Component {
           })
         }
       }
-  
+        }
       }
     }
     return result;
