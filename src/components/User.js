@@ -17,10 +17,6 @@ export default function User() {
     
   },[])
 
-    
-    // {user ? console.log(user[0].id) : console.log("fhiof");
-    
-    // }
 
   const logout = () => {
     localStorage.removeItem("token");

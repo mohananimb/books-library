@@ -19,6 +19,7 @@ class FavBooks extends Component {
   render() {
     const lg = () => {
       localStorage.removeItem("token");
+      localStorage.removeItem("email")
       this.setState({
         redirect: true
       });

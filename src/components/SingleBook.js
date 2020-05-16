@@ -23,6 +23,7 @@ export default class SingleBook extends Component {
     const { book } = this.state;
     const lg = () => {
       localStorage.removeItem("token");
+      localStorage.removeItem("email")
     };
 
     const del = e => {
