@@ -18,6 +18,29 @@ export default class Login extends Component {
     });
   };
 
+
+   findUSer (mail) {
+    let key, result = [];
+    for (key in localStorage) {
+      if (localStorage.hasOwnProperty(key)) {
+
+      let j = JSON.parse(localStorage[key])
+      if(j.email) {
+          if(j.email === mail) { 
+          let value = JSON.parse(localStorage.getItem(key));
+          result.push({
+              key: key,
+              val: value
+          })
+        }
+      }
+  
+      }
+    }
+    return result;
+  }
+  
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -30,39 +53,30 @@ export default class Login extends Component {
     }).then(res => {
       if (res.status === 200) {
         res.json().then(data => {
-          if(localStorage.length > 0) {
 
-            for(let key in localStorage) {
-              let js = JSON.parse(localStorage[key])
-              
-              if(js.email === this.state.email) {
+          let r = this.findUSer(this.state.email);
+          
+          if(r.length > 0) {
 
-                let temp = JSON.parse(localStorage[key])
-
-                if(temp.email === this.state.email) {
-                  if(temp.password === CryptoJS.MD5(this.state.password).toString()) {
-                    localStorage.setItem("token", JSON.stringify(data.token));
-                          this.setState({
-                            isLoggedIn: true
-                          });
-                  }
-                }else {
-                  this.setState({
-                    email: "",
-                    password: ""
-                  });
-                  swal("Sorry!", "Invalid Username or Password!", "danger");
-                }
-                break;
-              }
-              
+            if((r[0].val.password ===  CryptoJS.MD5(this.state.password).toString())) {
+              localStorage.setItem("token", JSON.stringify(data.token));
+                this.setState({
+                  isLoggedIn: true
+                })
+            }else {
+              this.setState({
+                email: "",
+                password: ""
+              })
+              swal("Sorry!", "Invalid Username or Password!", "error");
             }
+
           }else {
             this.setState({
               email: "",
               password: ""
             });
-        swal("Sorry!", "You have to register before login!", "danger");
+        swal("Sorry!", "You have to register before login!", "error");
           }
         });
       } else {
@@ -70,7 +84,7 @@ export default class Login extends Component {
           email: "",
           password: ""
         });
-        swal("Sorry!", "You are not authorised to this site!", "danger");
+        swal("Sorry!", "You are not authorised to this site!", "error");
       }
     });
   };

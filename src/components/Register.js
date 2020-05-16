@@ -55,7 +55,7 @@ export default class Register extends Component {
       }).then(res => {
         let status = res.status;
         if (status === 400) {
-          swal("Sorry!", "You're not authorised user, you can't register!", "danger");
+          swal("Sorry!", "You're not authorised user, you can't register!", "error");
           this.setState({ email: "", password: "", cpassword: "" });
         } else if (status === 200) {
           res.json().then(data => {
