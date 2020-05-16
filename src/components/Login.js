@@ -33,13 +33,12 @@ export default class Login extends Component {
           if(localStorage.length > 0) {
 
             for(let key in localStorage) {
-
               let js = JSON.parse(localStorage[key])
               
               if(js.email === this.state.email) {
 
                 let temp = JSON.parse(localStorage[key])
-                
+
                 if(temp.email === this.state.email) {
                   if(temp.password === CryptoJS.MD5(this.state.password).toString()) {
                     localStorage.setItem("token", JSON.stringify(data.token));
