@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./styles/Register.scss";
-import CryptoJS from "crypto-js";
 import swal from '@sweetalert/with-react'
 
 export default class Register extends Component {
@@ -59,25 +58,27 @@ export default class Register extends Component {
           this.setState({ email: "", password: "", cpassword: "" });
         } else if (status === 200) {
           res.json().then(data => {
-            if (localStorage.hasOwnProperty(`token${data.id}`)) {
-              swal("ohh!", "You're alredy registered, Please Login!", "warning");
-              this.setState({ redirect: true });
-            } else {
-              let info = {
-                id: data.id,
-                token: data.token,
-                email: this.state.email,
-                password: CryptoJS.MD5(this.state.password).toString()
-              };
-              localStorage.setItem(`token${data.id}`, JSON.stringify(info));
-              swal("Great!", "You're Signed Up Successfully! Please Login", "success");
-              this.setState({
-                redirect: true,
-                email: "",
-                password: "",
-                cpassword: ""
-              });
+            let regUser = localStorage.getItem("regToken");
+            if(regUser) {
+              // console.log(JSON.parse(regUser).token);
+              if(JSON.parse(regUser).token === data.token) {
+                swal("ohh!", "You're alredy registered, Please Login!", "warning");
+                this.setState({ redirect: true });
+              }
             }
+              if(!this.state.redirect) {
+                let info = {
+                  token: data.token
+                };
+                localStorage.setItem(`regToken`, JSON.stringify(info));
+                swal("Great!", "You're Signed Up Successfully! Please Login", "success");
+                this.setState({
+                  redirect: true,
+                  email: "",
+                  password: "",
+                  cpassword: ""
+                });
+              }
           });
         }
       });
