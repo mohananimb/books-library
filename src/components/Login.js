@@ -60,6 +60,7 @@ export default class Login extends Component {
 
             if((r[0].val.password ===  CryptoJS.MD5(this.state.password).toString())) {
               localStorage.setItem("token", JSON.stringify(data.token));
+              localStorage.setItem("email", r[0].val.email)
                 this.setState({
                   isLoggedIn: true
                 })

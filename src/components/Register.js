@@ -20,7 +20,7 @@ export default class Register extends Component {
     const { email, password, cpassword } = this.state;
 
     if (email.includes("@") && email.includes(".")) {
-      if (password.length > 8) {
+      if (password.length >= 8) {
         if (password === cpassword) {
           return true;
         } else {

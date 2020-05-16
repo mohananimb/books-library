@@ -9,12 +9,12 @@ body {
   background-color: #f1e3cb;
   overflow-x: hidden;
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
+  button:hover {
+    cursor: pointer;
+  } 
 }
-/* 
-button:hover {
-  cursor: pointer;
-} */
+
+
 .navmain {
   margin-left: 730%;
   display: inline-block;
