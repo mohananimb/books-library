@@ -1,8 +1,7 @@
 import {
-  FETCH_DATA
-} from "./types";
-import {
-  FAVORITE
+  FETCH_DATA,
+  FAVORITE,
+  USERDATA
 } from "./types";
 
 
@@ -27,6 +26,45 @@ export const fetchFav = () => dispatch => {
       });
     });
 };
+
+export const user = () => dispatch => {
+  fetch("https://reqres.in/api/users").then(res => res.json())
+  .then(data => {
+    // console.log(data.data);
+    dispatch ({
+      type: USERDATA,
+      payload: data.data.filter(item => item.email === localStorage.email)
+    })
+  })
+}
+
+
+
+
+
+
+
+
+
+
+// export const login = logData => dispatch => {
+//   fetch("https://reqres.in/api/login", {
+//     method: "POST",
+//     headers: {
+//       "content-type": "application/json"
+//     },
+//     body: JSON.stringify(logData)
+//   }).then(res => {
+//     if (res.status === 400) {
+//       swal("Sorry!", "You're not authorised user, you can't register!", "error");
+//     } else if (res.status === 200) {
+//       res.json().then(data => dispatch({
+//         type: LOGDATA,
+//         payload: data
+//       }))
+//     }
+//   })
+// }
 
 // export const register = regData => dispatch => {
 //   fetch("https://reqres.in/api/register", {

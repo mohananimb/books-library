@@ -1,42 +1,43 @@
-import React, { useState, useEffect } from "react";
+
+import React, { Component } from 'react'
 import "./styles/User.scss";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar2 from "./Navbar2";
+import {connect} from "react-redux";
+import {user} from "../redux/actions/booksAction"
 
+ class User extends Component {
+  state = {
+    isRedirect: false
+  }
 
-export default function User() {
-  const [isRedirect, setRedirect] = useState(false);
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    fetch("https://reqres.in/api/users").then(res => res.json())
-    .then(data => {
-      setUser(data.data.filter(user => user.email === localStorage.email))
-    })
-    
-  },[])
-
-
-  const logout = () => {
+  logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email")
-    setRedirect(true);
+    this.setState({
+      isRedirect: true
+    })
   };
 
-  
-  
-  if (isRedirect) {
-    return <Redirect to="/" />;
+  componentDidMount() {
+    this.props.user();
   }
-  return (
-    <React.Fragment>
+
+  render() {
+    const user = this.props.UserReducer[0]
+    
+    if (this.state.isRedirect) {
+      return <Redirect to="/" />;
+    }
+    return (
+      <React.Fragment>
       <div className="main">
-        <Navbar2 log={logout} />
+        <Navbar2 log={this.logout} />
         <div className="explore">
         <h1>Hello!</h1>
-        {user ?<img src={user[0].avatar} alt ={user[0].first_name}/> : null }
-          {user ? <p className="text-warning">{user[0].first_name} {user[0].last_name}</p> : null}
+         {user ?<img src={user.avatar} alt ={user.first_name}/> : null }
+          {user ? <p className="text-warning">{user.first_name} {user.last_name}</p> : null}
           <p>Welcome to eBook!</p>
           <Link to="/favorite-books" className="btn btn-warning ">
             Explore Your Favorite Books
@@ -44,5 +45,19 @@ export default function User() {
         </div>
       </div>
     </React.Fragment>
-  );
+    )
+  }
 }
+
+const mapStateToProps = state => ({
+  UserReducer: state.UserReducer.userData
+})
+
+export default connect(mapStateToProps, {user})(User);
+
+
+   
+
+  
+  
+  
