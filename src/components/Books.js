@@ -3,32 +3,30 @@ import "./styles/Books.scss";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 import swal from '@sweetalert/with-react'
-import {throttle} from "./Throttle"
+import { throttle } from "./Throttle"
 
 const Books = ({ name, img, author, released, id }) => {
-
   const handleClick = e => {
-    
+
     if (localStorage.token) {
-      let fevBook = {
-        book_id: id,
-        user_id: localStorage.token,
-        author: author,
-        name: name,
-        released: released,
-        img: img
-      };
-      fetch("https://5eb82be6bb17460016b326b8.mockapi.io/favorite-books", {
+
+      fetch(`http://localhost:5000/favorite-books/${id}`, {
         method: "POST",
         headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(fevBook)
-      }).then(res => res.json());
+          "content-type": "application/json",
+          "Authorization": JSON.parse(localStorage.token)
+        }
+      }).then(res => {
+        if(res.status === 500) {
+          swal("Ohh!", "This book is already in your favorite list!", "warning");
+        }
+      });
+
+
       swal("Awesome!", "You have just added your book to favorite list!", "success");
     }
   };
-  
+
   const main = throttle(handleClick, 3000);
 
   return (

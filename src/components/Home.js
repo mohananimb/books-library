@@ -26,6 +26,7 @@ class Home extends Component {
       });
     };
 
+
     return (
       <React.Fragment>
         {localStorage.token ? <Navbar2 log={lg} /> : <Navbar />}
@@ -37,8 +38,8 @@ class Home extends Component {
               author={book.author}
               released={book.year}
               img={book.image}
-              key={book.id}
-              id={book.id}
+              key={book._id}
+              id={book._id}
             />
           ))}
         </div>

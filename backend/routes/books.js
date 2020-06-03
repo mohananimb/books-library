@@ -27,11 +27,12 @@ router.get("/books", async (req, res) => {
     }
 })
 
-router.get("/favortite-books", auth, async (req, res) => {
+router.get("/favorite-books", auth, async (req, res) => {
     const { favorites } = req.user
-    try {
-        const books = await Books.find().where("favorites").in(favorites).exec()
 
+    try {
+        const books = await Books.find().where("_id").in(favorites).exec()
+        
         if (!books) {
             return res.status(404).send("Not added any favorites")
         }
@@ -55,7 +56,11 @@ router.delete("/favorite-books/:id", auth, async (req, res) => {
 })
 
 router.post("/favorite-books/:id", auth, async (req, res) => {
+    
     const { favorites } = req.user
+    if(favorites.includes(req.params.id)) {
+        return res.status(500).send("Already Exists")
+    }
     try {
         const user = req.user
         favorites.push(req.params.id)

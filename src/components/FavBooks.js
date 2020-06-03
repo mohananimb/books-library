@@ -42,38 +42,34 @@ class FavBooks extends Component {
                 </div>
               </div>
             ) : (
-              <div>
-                <div className="fb">
-                  <Navbar2 log={lg} />
-                  <h1 className="heading">MY FAVORITES</h1>
-                  <hr />
-                  <div className="favBooks">
-                    {this.props.favBookReducer.map((book, i) => {
-                      if (book.user_id === localStorage.token) {
+                <div>
+                  <div className="fb">
+                    <Navbar2 log={lg} />
+                    <h1 className="heading">MY FAVORITES</h1>
+                    <hr />
+                    <div className="favBooks">
+                      {this.props.favBookReducer.map((book) => {
                         return (
-                            <Book
-                              key={book.id}
-                              name={book.name}
-                              author={book.author}
-                              released={book.released}
-                              img={book.img}
-                              id={book.book_id}
-                            />
+                          <Book
+                            key={book._id}
+                            name={book.title}
+                            author={book.author}
+                            released={book.year}
+                            img={book.image}
+                            id={book._id}
+                          />
                         );
-                      }else {
-                        return null;
-                      }
-                    })}
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
         ) : (
-          <div>
-            <Redirect to="/" />
-          </div>
-        )}
+            <div>
+              <Redirect to="/" />
+            </div>
+          )}
       </div>
     );
   }

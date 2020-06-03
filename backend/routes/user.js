@@ -14,11 +14,6 @@ router.post("/users/add", async (req, res) => {
     const user = await new User(req.body)
     try {
         const token = await jwt.sign({ _id: user._id.toString() }, "thisisuserapi")
-
-        // user.tokens = await user.tokens.concat({
-        //     token
-        // })
-
         await user.save()
         res.send({ user: user._id })
     } catch (e) {
@@ -75,10 +70,6 @@ router.patch("/users/:id", async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ["email", "password"]
     const isValid = updates.every(update => allowedUpdates.includes(update))
-
-    console.log(req.body);
-
-    console.log(isValid);
 
     if (!isValid) {
         res.status(400).send()

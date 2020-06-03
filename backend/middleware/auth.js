@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken")
 const User = require("../models/User")
 
 const auth = async (req, res, next) => {
-    const token = req.header("auth-token")
+    const token = req.header("Authorization")
+    
     if (!token) {
         return res.status(401).send("Access Denied")
     }
@@ -13,7 +14,7 @@ const auth = async (req, res, next) => {
             _id: verified._id
         })
 
-        if(!user) {
+        if (!user) {
             return res.status(404).send("Not Found")
         }
 
@@ -25,16 +26,3 @@ const auth = async (req, res, next) => {
 }
 
 module.exports = auth
-
-// const user = await User.findOne({
-//     _id: decoded._id,
-//     "tokens.token": token
-// })
-
-// if (!user) {
-//     throw new Error()
-// }
-
-// req.token = token
-// req.user = user
-// next()
