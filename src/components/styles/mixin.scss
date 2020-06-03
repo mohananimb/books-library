@@ -22,10 +22,10 @@
   background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
 }
 
-@mixin logRegForm($ht) {
+@mixin logRegForm($pd) {
   box-shadow: 0px 5px 20px #dddddd;
-  height: $ht;
-  padding: 20px;
+  // height: $ht;
+  padding: $pd;
 }
 
 @mixin center {

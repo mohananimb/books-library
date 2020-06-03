@@ -43,45 +43,73 @@ export default class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.state);
 
     if (this.userValidation()) {
-      fetch("https://reqres.in/api/register", {
+
+
+      fetch("http://localhost:5000/users/add", {
         method: "POST",
         headers: {
           "content-type": "application/json"
         },
         body: JSON.stringify(this.state)
       }).then(res => {
-        let status = res.status;
-        if (status === 400) {
-          swal("Sorry!", "You're not authorised user, you can't register!", "error");
+        if (res.status === 400) {
+          swal("Sorry!", "Unable to Register", "error")
+        } else if (res.status === 401) {
+          swal("Ohh!", "You are already Registered, Please Login", "warning")
           this.setState({ email: "", password: "", cpassword: "" });
-        } else if (status === 200) {
+        } else if (res.status === 200) {
           res.json().then(data => {
-            let regUser = localStorage.getItem("regToken");
-            if(regUser) {
-              // console.log(JSON.parse(regUser).token);
-              if(JSON.parse(regUser).token === data.token) {
-                swal("ohh!", "You're alredy registered, Please Login!", "warning");
-                this.setState({ redirect: true });
-              }
-            }
-              if(!this.state.redirect) {
-                let info = {
-                  token: data.token
-                };
-                localStorage.setItem(`regToken`, JSON.stringify(info));
-                swal("Great!", "You're Signed Up Successfully! Please Login", "success");
-                this.setState({
-                  redirect: true,
-                  email: "",
-                  password: "",
-                  cpassword: ""
-                });
-              }
-          });
+            swal("Great!", "You're Signed Up Successfully! Please Login", "success");
+            this.setState({
+              redirect: true,
+              email: "",
+              password: "",
+              cpassword: ""
+            });
+          })
         }
-      });
+      })
+
+      // fetch("http://localhost:5000/users/add", {
+      //   method: "POST",
+      //   headers: {
+      //     "content-type": "application/json"
+      //   },
+      //   body: JSON.stringify(this.state)
+      // }).then(res => {
+      //   let status = res.status;
+      //   if (status === 400) {
+      //     swal("Sorry!", "You're not authorised user, you can't register!", "error");
+      //     this.setState({ email: "", password: "", cpassword: "" });
+      //   } else if (status === 200) {
+      //     res.json().then(data => {
+      //       let regUser = localStorage.getItem("regToken");
+      //       if(regUser) {
+      //         // console.log(JSON.parse(regUser).token);
+      //         if(JSON.parse(regUser).token === data.token) {
+      //           swal("ohh!", "You're alredy registered, Please Login!", "warning");
+      //           this.setState({ redirect: true });
+      //         }
+      //       }
+      //         if(!this.state.redirect) {
+      //           let info = {
+      //             token: data.token
+      //           };
+      //           localStorage.setItem(`regToken`, JSON.stringify(info));
+      //           swal("Great!", "You're Signed Up Successfully! Please Login", "success");
+      //           this.setState({
+      //             redirect: true,
+      //             email: "",
+      //             password: "",
+      //             cpassword: ""
+      //           });
+      //         }
+      //     });
+      //   }
+      // });
     } else {
       setTimeout(() => {
         this.setState({

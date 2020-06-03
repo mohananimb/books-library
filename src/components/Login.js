@@ -18,39 +18,60 @@ export default class Login extends Component {
   };
 
 
-
-  
-
   handleSubmit = e => {
     e.preventDefault();
 
-    fetch("https://reqres.in/api/login", {
+    fetch("http://localhost:5000/users/login", {
       method: "POST",
       headers: {
         "content-type": "application/json"
       },
       body: JSON.stringify(this.state)
     }).then(res => {
-      if (res.status === 200) {
+      if(res.status === 200) {
         res.json().then(data => {
-            localStorage.setItem("token", JSON.stringify(data.token));
-            localStorage.setItem("email", this.state.email)
+          localStorage.setItem("token", JSON.stringify(data.token));
+                  localStorage.setItem("email", this.state.email)
+                  this.setState({
+                    isLoggedIn: true
+                  })
+        })
+      }else {
             this.setState({
-              isLoggedIn: true
-            })
-        });
-      } else {
-        this.setState({
-          email: "",
-          password: ""
-        });
-        swal("Sorry!", "You are not authorised to this site!", "error");
-      }
-    });
+              email: "",
+              password: ""
+            });
+            swal("Opps","Invalid Username or passowrd", "error");
+          }
+    })
+
+    // fetch("localhost:5000/users/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json"
+    //   },
+    //   body: JSON.stringify(this.state)
+    // }).then(res => {
+    //   if (res.status === 200) {
+    //     res.json().then(data => {
+    //         localStorage.setItem("token", JSON.stringify(data.token));
+    //         localStorage.setItem("email", this.state.email)
+    //         this.setState({
+    //           isLoggedIn: true
+    //         })
+    //     });
+    //   } else {
+    //     this.setState({
+    //       email: "",
+    //       password: ""
+    //     });
+    //     swal("Sorry!", "You are not authorised to this site!", "error");
+    //   }
+    // });
   };
 
   render() {
-    
+
     return (
       <div className="di">
         {this.state.isLoggedIn ? <Redirect to="/user" /> : null}
