@@ -3,33 +3,25 @@ import "./styles/SingleBook.scss";
 import Navbar2 from "./Navbar2";
 import { Redirect } from "react-router-dom";
 import swal from "@sweetalert/with-react"
+import { connect } from "react-redux"
 
-export default class SingleBook extends Component {
+class SingleBook extends Component {
   state = {
     book: [],
     redirect: false
   };
 
   componentDidMount() {
-    fetch("http://localhost:5000/favorite-books", {
-      method: "GET",
-      headers: {
-        "Authorization": JSON.parse(localStorage.token)
-      }
+    this.setState({
+      book: this.props.state.favBooks.filter(item => item._id === this.props.match.params.id)
     })
-      .then(res => res.json())
-      .then(data => {
-        this.setState({
-          book: data.filter(item => item._id === this.props.match.params.id)
-        });
-      });
   }
 
   render() {
+    
     const { book } = this.state;
     const lg = () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("email")
     };
 
     const del = e => {
@@ -106,3 +98,10 @@ export default class SingleBook extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  state
+})
+
+export default connect(mapStateToProps)(SingleBook);

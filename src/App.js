@@ -7,11 +7,13 @@ import Home from "./components/Home";
 import { Provider } from "react-redux";
 import User from "./components/User";
 import Protected from "./components/Secure/Protected";
-import store from "./store";
+// import store from "./store";
+import configureStore from "./store"
 import FavBooks from "./components/FavBooks";
 import SingleBook from "./components/SingleBook";
 import Footer from "./components/Footer";
 
+const store = configureStore()
 const App = () => {
   return (
     <Provider store={store}>
@@ -19,7 +21,7 @@ const App = () => {
         <React.Fragment>
           <Switch>
             <Route exact path="/" component={Home} />
-             <Route path="/login" component={Login} />
+            <Route path="/login" component={Login} />
             <Route
               path="/register"
               component={props => <Register {...props} />}

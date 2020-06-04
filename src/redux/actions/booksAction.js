@@ -1,20 +1,19 @@
 import {
-  FETCH_DATA,
   FAVORITE,
   USERDATA
 } from "./types";
 
 
-export const fetchBooks = () => dispatch => {
-  fetch("http://localhost:5000/books")
-    .then(res => res.json())
-    .then(data => {
-      dispatch({
-        type: FETCH_DATA,
-        payload: data
-      });
-    });
-};
+// export const fetchBooks = () => dispatch => {
+//   fetch("http://localhost:5000/books")
+//     .then(res => res.json())
+//     .then(data => {
+//       dispatch({
+//         type: FETCH_DATA,
+//         payload: data
+//       });
+//     });
+// };
 
 
 export const fetchFav = () => dispatch => {

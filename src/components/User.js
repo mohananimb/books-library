@@ -4,10 +4,9 @@ import "./styles/User.scss";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar2 from "./Navbar2";
-import {connect} from "react-redux";
-import {user} from "../redux/actions/booksAction"
-
- class User extends Component {
+import { connect } from "react-redux";
+import { user } from "../redux/actions/booksAction"
+class User extends Component {
   state = {
     isRedirect: false
   }
@@ -20,44 +19,48 @@ import {user} from "../redux/actions/booksAction"
     })
   };
 
-  componentDidMount() {
-    this.props.user();
-  }
 
   render() {
-    const user = this.props.UserReducer[0]
-    
+    console.log(this.props);
+
     if (this.state.isRedirect) {
       return <Redirect to="/" />;
     }
     return (
+
       <React.Fragment>
-      <div className="main">
-        <Navbar2 log={this.logout} />
-        <div className="explore">
-        <h1>Hello!</h1>
-         {user ?<img src={user.avatar} alt ={user.first_name}/> : null }
-          {user ? <p className="text-warning">{user.first_name} {user.last_name}</p> : null}
-          <p>Welcome to eBook!</p>
-          <Link to="/favorite-books" className="btn btn-warning ">
-            Explore Your Favorite Books
+        <div className="main">
+          <Navbar2 log={this.logout} />
+          <div className="explore">
+            <h1>Hello!</h1>
+            {user ? <img src={user.avatar} alt={user.first_name} /> : null}
+            {user ? <p className="text-warning">{user.first_name} {user.last_name}</p> : null}
+            <p>Welcome to eBook!</p>
+            <Link to="/favorite-books" className="btn btn-warning ">
+              Explore Your Favorite Books
           </Link>
+          </div>
         </div>
-      </div>
-    </React.Fragment>
+
+      </React.Fragment>
+
     )
   }
 }
 
-const mapStateToProps = state => ({
-  UserReducer: state.UserReducer.userData
+const mapStateToProps = (state) => ({
+  state
 })
 
-export default connect(mapStateToProps, {user})(User);
+// const mapDispatchToProps = dispatch => ({
+//   loadData: () => dispatch(loadData())
+// })
+
+export default connect(mapStateToProps)(User);
 
 
-   
 
-  
-  
-  
+
+
+
+

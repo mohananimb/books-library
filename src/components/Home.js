@@ -3,9 +3,9 @@ import Navbar from "./Navbar";
 import "./styles/Books.scss";
 import Book from "./Books";
 import { connect } from "react-redux";
-import { fetchBooks } from "../redux/actions/booksAction";
 import Navbar2 from "./Navbar2";
 import { Redirect } from "react-router-dom";
+import { loadData } from "../actions"
 
 class Home extends Component {
   state = {
@@ -13,13 +13,15 @@ class Home extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchBooks();
+    // this.props.fetchBooks();
+    this.props.loadData()
+    // console.log(this.props.books);
+
   }
 
   render() {
     const lg = () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("email")
 
       this.setState({
         redirect: true
@@ -27,12 +29,16 @@ class Home extends Component {
     };
 
 
+
+
+
     return (
       <React.Fragment>
+
         {localStorage.token ? <Navbar2 log={lg} /> : <Navbar />}
         {this.state.redirect ? <Redirect to="/login" /> : null}
         <div className="fetchBook">
-          {this.props.booksReducer.map(book => (
+          {this.props.books.map(book => (
             <Book
               name={book.title}
               author={book.author}
@@ -43,13 +49,17 @@ class Home extends Component {
             />
           ))}
         </div>
+
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  booksReducer: state.booksReducer.books
+const mapStateToProps = ({ books, error, isLoading }) => ({
+  books, error, isLoading
 });
 
-export default connect(mapStateToProps, { fetchBooks })(Home);
+const mapDispatchToProps = dispatch => ({
+  loadData: () => dispatch(loadData())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -5,16 +5,11 @@ import { Redirect } from "react-router-dom";
 import Navbar2 from "./Navbar2";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchFav } from "../redux/actions/booksAction";
 
 class FavBooks extends Component {
   state = {
     redirect: false
   };
-
-  componentDidMount() {
-    this.props.fetchFav();
-  }
 
   render() {
     const lg = () => {
@@ -29,7 +24,7 @@ class FavBooks extends Component {
       <div>
         {localStorage.token ? (
           <div>
-            {this.props.favBookReducer.length === 0 ? (
+            {this.props.state.favBooks.length === 0 ? (
               <div>
                 <Navbar2 log={lg} />
                 <div className="err">
@@ -48,7 +43,7 @@ class FavBooks extends Component {
                     <h1 className="heading">MY FAVORITES</h1>
                     <hr />
                     <div className="favBooks">
-                      {this.props.favBookReducer.map((book) => {
+                      {this.props.state.favBooks.map((book) => {
                         return (
                           <Book
                             key={book._id}
@@ -75,8 +70,10 @@ class FavBooks extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  favBookReducer: state.favBookReducer.main
-});
 
-export default connect(mapStateToProps, { fetchFav })(FavBooks);
+const mapStateToProps = (state) => ({
+  state
+})
+
+
+export default connect(mapStateToProps, null)(FavBooks);

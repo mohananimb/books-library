@@ -31,7 +31,6 @@ export default class Login extends Component {
       if(res.status === 200) {
         res.json().then(data => {
           localStorage.setItem("token", JSON.stringify(data.token));
-                  localStorage.setItem("email", this.state.email)
                   this.setState({
                     isLoggedIn: true
                   })

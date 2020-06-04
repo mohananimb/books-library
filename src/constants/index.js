@@ -1,0 +1,14 @@
+const DATA = {
+    LOAD: "LOAD_DATA",
+    LOAD_SUCCESS: "DATA_LOAD_SUCCESS",
+    LOAD_FAILURE: "DATA_LOAD_FAIL",
+    FAVORITE: "FAVORITE_BOOKS"
+}
+
+// const FAV = {
+//     LOAD: "LOAD_FAV_BOOKS",
+//     LOAD_SUCCESS: "FAV_BOOKS_FETCHED",
+//     LOAD_FAILURE: "FAV_BOOKS_FAILED",
+// }
+
+export { DATA }
