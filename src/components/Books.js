@@ -14,7 +14,7 @@ const Books = ({ name, img, author, released, id }) => {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          "Authorization": JSON.parse(localStorage.token)
+          "Authorization": localStorage.token
         }
       }).then(res => {
         if(res.status === 500) {

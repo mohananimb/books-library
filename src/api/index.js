@@ -12,7 +12,7 @@ const fetchFav = async () => {
     const res = await fetch("http://localhost:5000/favorite-books", {
         method: "GET",
         headers: {
-            "Authorization": JSON.parse(localStorage.token)
+            "Authorization": (localStorage.token)
         }
     })
 

@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom"
 
 export default function Protected(props) {
     const Compo = props.compo
-    let token = JSON.parse(localStorage.getItem("token"))
+    let token = localStorage.getItem("token")
     
     return (
         <div>

@@ -7,19 +7,16 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class FavBooks extends Component {
-  state = {
-    redirect: false
-  };
+ 
 
   render() {
     const lg = () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("email")
-      this.setState({
-        redirect: true
-      });
+      window.location = "/"
     };
 
+    // console.log(this.props);
+    
     return (
       <div>
         {localStorage.token ? (

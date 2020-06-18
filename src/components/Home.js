@@ -22,21 +22,14 @@ class Home extends Component {
   render() {
     const lg = () => {
       localStorage.removeItem("token");
-
-      this.setState({
-        redirect: true
-      });
+      window.location = "/login"
     };
-
-
-
-
 
     return (
       <React.Fragment>
 
         {localStorage.token ? <Navbar2 log={lg} /> : <Navbar />}
-        {this.state.redirect ? <Redirect to="/login" /> : null}
+       
         <div className="fetchBook">
           {this.props.books.map(book => (
             <Book

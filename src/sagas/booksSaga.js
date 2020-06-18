@@ -3,18 +3,18 @@ import { fetchBooks } from "../api/index"
 import { fetchFav } from "../api/index"
 import { setData, setError, favData } from "../actions"
 
-function* handleBooksLoad() {
+export function* handleBooksLoad() {
     try {
         const books = yield call(fetchBooks)
 
-        yield put(setData(books))
+        yield put(setData(books, []))
 
     } catch (error) {
         yield put(setError(error.toString()))
     }
 }
 
-function* handleFavBooks() {
+export function* handleFavBooks() {
     try {
         const favBooks = yield call(fetchFav)
         yield put(favData(favBooks))
@@ -24,11 +24,5 @@ function* handleFavBooks() {
     }
 }
 
-function* rootSaga() {
-    yield all([
-        handleBooksLoad(),
-        handleFavBooks()
-    ])
-}
 
-export default rootSaga
+

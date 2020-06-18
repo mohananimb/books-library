@@ -2,97 +2,65 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./styles/Register.scss";
-import swal from '@sweetalert/with-react'
+import swal from "@sweetalert/with-react";
+import { connect } from "react-redux";
+import { registerUserAction } from "../actions/authAction";
 
-export default class Register extends Component {
-  state = {
-    email: "",
-    password: "",
-    cpassword: "",
-    emailErr: "",
-    passwordErr: "",
-    cpasswordErr: "",
-    redirect: false
-  };
-
-  userValidation = () => {
-    const { email, password, cpassword } = this.state;
-
-    if (email.includes("@") && email.includes(".")) {
-      if (password.length >= 8) {
-        if (password === cpassword) {
-          return true;
-        } else {
-          this.setState({
-            cpasswordErr: "Password doesn't match"
-          });
-        }
-      } else {
-        this.setState({
-          passwordErr: "Password must be eight characters long"
-        });
-        return false;
-      }
-    } else {
-      this.setState({
-        emailErr: "Invalid Email"
-      });
-      return false;
-    }
-  };
-
+class Register extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    if (this.userValidation()) {
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+    let cpassword = e.target.cpassword.value;
 
+    if (email.includes("@") && email.includes(".")) {
+      if (password.length > 8) {
+        if (password === cpassword) {
+          const data = {
+            email,
+            password
+          };
 
-      fetch("http://localhost:5000/users/add", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json"
-        },
-        body: JSON.stringify(this.state)
-      }).then(res => {
-        if (res.status === 400) {
-          swal("Sorry!", "Unable to Register", "error")
-        } else if (res.status === 401) {
-          swal("Ohh!", "You are already Registered, Please Login", "warning")
-          this.setState({ email: "", password: "", cpassword: "" });
-        } else if (res.status === 200) {
-          res.json().then(data => {
-            swal("Great!", "You're Signed Up Successfully! Please Login", "success");
-            this.setState({
-              redirect: true,
-              email: "",
-              password: "",
-              cpassword: ""
-            });
-          })
+          this.props.dispatch(registerUserAction(data));
+        } else {
+          e.target.email.value = "";
+          e.target.password.value = "";
+          e.target.cpassword.value = "";
+          swal("Sorry!", "Password Not Match", "error");
         }
-      })
+      } else {
+        e.target.email.value = "";
+        e.target.password.value = "";
+        e.target.cpassword.value = "";
+        swal("Sorry!", "Password Must be 8 characters long", "error");
+      }
     } else {
-      setTimeout(() => {
-        this.setState({
-          emailErr: "",
-          passwordErr: "",
-          cpasswordErr: ""
-        });
-      }, 2000);
+      e.target.email.value = "";
+      e.target.password.value = "";
+      e.target.cpassword.value = "";
+      swal("Sorry!", "Invalid E-mail", "error");
     }
-  };
-
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
   };
 
   render() {
+    const {
+      response: {
+        register: { user, error }
+      }
+    } = this.props;
 
-    if (this.state.redirect) {
+    if (user) {
+      swal("Great", "You're Signed Up Successfully", "success");
+
       return <Redirect to="/login" />;
     }
+
+    if (error) {
+      swal("Oops", "Something went wrong", "warning");
+    }
+
+    console.log(this.props);
 
     return (
       <div>
@@ -100,43 +68,28 @@ export default class Register extends Component {
         <form className="form" onSubmit={this.handleSubmit}>
           <div className="reg">
             <input
-              className={`input ${this.state.emailErr && "emailErr"}`}
+              className="input"
               type="text"
               name="email"
-              onChange={this.handleChange}
               autoComplete="off"
               placeholder="Enter your E-mail"
-              value={this.state.email}
             />
-            <span id="email-error" className="text-danger font-weight-bold">
-              {this.state.emailErr}
-            </span>
             <br />
             <input
-              className={`input ${this.state.passwordErr && "passErr"}`}
+              className="input"
               type="password"
               name="password"
-              onChange={this.handleChange}
               autoComplete="off"
               placeholder="Enter your Password"
-              value={this.state.password}
             />
-            <span id="password-error" className="text-danger font-weight-bold">
-              {this.state.passwordErr}
-            </span>
             <br />
             <input
-              className={`input ${this.state.cpasswordErr && "cpassErr"}`}
+              className= "input"
               type="password"
               name="cpassword"
-              onChange={this.handleChange}
               autoComplete="off"
               placeholder="Confirm your Password"
-              value={this.state.cpassword}
             />
-            <span id="password-error" className="text-danger font-weight-bold">
-              {this.state.cpasswordErr}
-            </span>
             <br />
             <button
               className="btn btn-dark btn-outline-light btn-lg my-2"
@@ -150,3 +103,9 @@ export default class Register extends Component {
     );
   }
 }
+
+const mapStateToProps = response => ({
+  response
+});
+
+export default connect(mapStateToProps)(Register);
