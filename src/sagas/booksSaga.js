@@ -1,13 +1,12 @@
-import { call, all, put } from "redux-saga/effects"
-import { fetchBooks } from "../api/index"
-import { fetchFav } from "../api/index"
+import { call, put } from "redux-saga/effects"
+import { fetchBooks, fetchFav } from "../api"
 import { setData, setError, favData } from "../actions"
 
 export function* handleBooksLoad() {
     try {
         const books = yield call(fetchBooks)
 
-        yield put(setData(books, []))
+        yield put(setData(books))
 
     } catch (error) {
         yield put(setError(error.toString()))

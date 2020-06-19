@@ -6,20 +6,16 @@ export const registerUserService = async request => {
     },
     body: JSON.stringify(request.user)
   });
-  console.log("API ", response);
-
-  const data = await response.json();
-
-  console.log("data ", data);
 
   if (response.status >= 400) {
     throw new Error();
   }
+  
+  const data = await response.json();
   return data;
 };
 
 export const loginUserService = async request => {
-  console.log("LOGIN API", request);
 
   const response = await fetch("http://localhost:5000/users/login", {
     method: "POST",
@@ -28,8 +24,11 @@ export const loginUserService = async request => {
     },
     body: JSON.stringify(request.user)
   });
-  const data = await response.json();
-  console.log("DATA ", data.token);
 
+  if (response.status >= 400) {
+    throw new Error("Invalid Credentials");
+  }
+
+  const data = await response.json();
   return data.token;
 };

@@ -4,22 +4,17 @@ import "./styles/Books.scss";
 import Book from "./Books";
 import { connect } from "react-redux";
 import Navbar2 from "./Navbar2";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { loadData } from "../actions"
 
 class Home extends Component {
-  state = {
-    redirect: false
-  };
-
-  componentDidMount() {
-    // this.props.fetchBooks();
+ 
+  componentDidMount() { 
     this.props.loadData()
-    // console.log(this.props.books);
-
   }
 
   render() {
+    
     const lg = () => {
       localStorage.removeItem("token");
       window.location = "/login"
@@ -31,7 +26,7 @@ class Home extends Component {
         {localStorage.token ? <Navbar2 log={lg} /> : <Navbar />}
        
         <div className="fetchBook">
-          {this.props.books.map(book => (
+          {this.props.books.books.map(book => (
             <Book
               name={book.title}
               author={book.author}

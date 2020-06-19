@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./styles/User.scss";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar2 from "./Navbar2";
 import { connect } from "react-redux";
@@ -12,8 +12,7 @@ class User extends Component {
     
   };
 
-  render() {
-   
+  render() {   
     return (
       <React.Fragment>
         <div className="main">

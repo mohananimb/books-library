@@ -7,6 +7,11 @@ import { loginUserAction } from "../actions/authAction";
 import swal from "@sweetalert/with-react";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.emailRef = React.createRef();
+    this.passwordRef = React.createRef();
+  }
   handleSubmit = e => {
     e.preventDefault();
 
@@ -18,31 +23,31 @@ class Login extends Component {
     };
 
     this.props.dispatch(loginUserAction(data));
-    console.log(this.props.response.login.error);
-    
-    if(this.props.response.login.error) {
-      swal("sorry!", "Invalid Credentials", "error")
-    }
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      response: {
+        login: { error }
+      }
+    } = this.props;
+    if (error) {
+      swal("Oops", "Invalid E-mail or Password", "warning");
+      this.emailRef.current.value = "";
+      this.passwordRef.current.value = "";
+    }
+  }
+
   render() {
-    
     const {
       response: {
         login: { token }
       }
     } = this.props;
-    
-    // console.log(action);
-
-    if (token) {
-      localStorage.setItem("token", token);
-    }
-
-    console.log(this.props);
 
     return (
       <div className="di">
+        {token ? localStorage.setItem("token", token) : null}
         {localStorage.token ? <Redirect to="/user" /> : null}
         <Navbar />
         <form className="form" onSubmit={this.handleSubmit}>
@@ -53,6 +58,7 @@ class Login extends Component {
               name="email"
               autoComplete="off"
               placeholder="Enter your E-mail"
+              ref={this.emailRef}
             />
             <br />
             <input
@@ -61,6 +67,7 @@ class Login extends Component {
               name="password"
               autoComplete="off"
               placeholder="Enter your Password"
+              ref={this.passwordRef}
             />
 
             <br />

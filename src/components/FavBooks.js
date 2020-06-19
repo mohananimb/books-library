@@ -13,15 +13,12 @@ class FavBooks extends Component {
     const lg = () => {
       localStorage.removeItem("token");
       window.location = "/"
-    };
-
-    // console.log(this.props);
-    
+    };    
     return (
       <div>
         {localStorage.token ? (
           <div>
-            {this.props.state.favBooks.length === 0 ? (
+            {this.props.state.books.favBooks.length === 0 ? (
               <div>
                 <Navbar2 log={lg} />
                 <div className="err">
@@ -40,7 +37,7 @@ class FavBooks extends Component {
                     <h1 className="heading">MY FAVORITES</h1>
                     <hr />
                     <div className="favBooks">
-                      {this.props.state.favBooks.map((book) => {
+                      {this.props.state.books.favBooks.map((book) => {
                         return (
                           <Book
                             key={book._id}
@@ -73,4 +70,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, null)(FavBooks);
+export default connect(mapStateToProps)(FavBooks);

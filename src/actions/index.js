@@ -1,20 +1,23 @@
-import { DATA } from "../constants/index"
+import {
+  registerUserAction,
+  registerSuccess,
+  registerError,
+  loginError,
+  loginSuccess,
+  loginUserAction
+} from "./authAction";
 
-export const loadData = () => ({
-    type: DATA.LOAD
-})
+import { loadData, favData, setData, setError } from "./booksActions";
 
-export const favData = data => ({
-    type: DATA.FAVORITE,
-    data
-})
-
-export const setData = data => ({
-    type: DATA.LOAD_SUCCESS,
-    data
-})
-
-export const setError = error => ({
-    type: DATA.LOAD_FAILURE,
-    error
-})
+export {
+  registerUserAction,
+  registerSuccess,
+  registerError,
+  loginError,
+  loginSuccess,
+  loginUserAction,
+  loadData,
+  favData,
+  setData,
+  setError
+};

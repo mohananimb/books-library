@@ -1,33 +1,16 @@
 import React, { Component } from "react";
 import "./styles/SingleBook.scss";
 import Navbar2 from "./Navbar2";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import swal from "@sweetalert/with-react";
 import { connect } from "react-redux";
 
 class SingleBook extends Component {
-  // state = {
-  //   book: [],
-  //   redirect: false
-  // };
-
-  componentDidMount() {
-    // this.setState({
-    //   book: this.props.state.favBooks.filter(item => item._id === this.props.match.params.id)
-    // })
-    // let book = this.props.state.favBooks.filter(item => item._id === this.props.match.params.id)
-  }
-
   render() {
-    // console.log(this.props);
-
-    let book = this.props.state.favBooks.filter(
+    let book = this.props.state.books.favBooks.filter(
       item => item._id === this.props.match.params.id
     );
-    console.log(book[0]);
 
-    // const { book } = this.state;
-    
     const lg = () => {
       localStorage.removeItem("token");
     };
@@ -36,7 +19,7 @@ class SingleBook extends Component {
       fetch(`http://localhost:5000/favorite-books/${e.target.id}`, {
         method: "DELETE",
         headers: {
-          "Authorization": localStorage.token
+          Authorization: localStorage.token
         }
       })
         .then(res => res.json())

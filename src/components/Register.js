@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import "./styles/Register.scss";
 import swal from "@sweetalert/with-react";
@@ -7,6 +7,12 @@ import { connect } from "react-redux";
 import { registerUserAction } from "../actions/authAction";
 
 class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.emailRef = React.createRef();
+    this.passwordRef = React.createRef();
+    this.cpasswordRef = React.createRef();
+  }
   handleSubmit = e => {
     e.preventDefault();
 
@@ -24,48 +30,51 @@ class Register extends Component {
 
           this.props.dispatch(registerUserAction(data));
         } else {
-          e.target.email.value = "";
-          e.target.password.value = "";
-          e.target.cpassword.value = "";
+          this.emailRef.current.value = "";
+          this.passwordRef.current.value = "";
+          this.cpasswordRef.current.value = "";
           swal("Sorry!", "Password Not Match", "error");
         }
       } else {
-        e.target.email.value = "";
-        e.target.password.value = "";
-        e.target.cpassword.value = "";
+        this.emailRef.current.value = "";
+        this.passwordRef.current.value = "";
+        this.cpasswordRef.current.value = "";
         swal("Sorry!", "Password Must be 8 characters long", "error");
       }
     } else {
-      e.target.email.value = "";
-      e.target.password.value = "";
-      e.target.cpassword.value = "";
+      this.emailRef.current.value = "";
+      this.passwordRef.current.value = "";
+      this.cpasswordRef.current.value = "";
       swal("Sorry!", "Invalid E-mail", "error");
     }
   };
 
-  render() {
+  componentDidUpdate(prevProps, prevState) {
     const {
       response: {
         register: { user, error }
       }
     } = this.props;
 
-    if (user) {
-      swal("Great", "You're Signed Up Successfully", "success");
-
-      return <Redirect to="/login" />;
-    }
-
     if (error) {
       swal("Oops", "Something went wrong", "warning");
+      this.emailRef.current.value = "";
+      this.passwordRef.current.value = "";
+      this.cpasswordRef.current.value = "";
     }
 
-    console.log(this.props);
+    if (user) {
+      swal("Great", "You're Signed Up Successfully", "success").then(() => {
+        window.location = "/login";
+      });
+    }
+  }
 
+  render() {
     return (
       <div>
         <Navbar />
-        <form className="form" onSubmit={this.handleSubmit}>
+        <form className="form" id="form" onSubmit={this.handleSubmit}>
           <div className="reg">
             <input
               className="input"
@@ -73,6 +82,7 @@ class Register extends Component {
               name="email"
               autoComplete="off"
               placeholder="Enter your E-mail"
+              ref={this.emailRef}
             />
             <br />
             <input
@@ -81,14 +91,16 @@ class Register extends Component {
               name="password"
               autoComplete="off"
               placeholder="Enter your Password"
+              ref={this.passwordRef}
             />
             <br />
             <input
-              className= "input"
+              className="input"
               type="password"
               name="cpassword"
               autoComplete="off"
               placeholder="Confirm your Password"
+              ref={this.cpasswordRef}
             />
             <br />
             <button
