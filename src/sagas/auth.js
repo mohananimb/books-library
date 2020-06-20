@@ -5,7 +5,7 @@ import {
   registerError,
   loginSuccess,
   loginError
-} from "../actions/authAction";
+} from "../actions";
 
 export function* registerSaga(payload) {
   try {

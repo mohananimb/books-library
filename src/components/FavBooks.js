@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class FavBooks extends Component {
- 
 
   render() {
     const lg = () => {

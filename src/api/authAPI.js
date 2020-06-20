@@ -17,6 +17,9 @@ export const registerUserService = async request => {
 
 export const loginUserService = async request => {
 
+  console.log("REQ", request);
+  
+
   const response = await fetch("http://localhost:5000/users/login", {
     method: "POST",
     headers: {

@@ -6,6 +6,7 @@ const initialState = {
   favBooks: [],
   error: null
 };
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case DATA.LOAD:
