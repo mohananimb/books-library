@@ -7,7 +7,7 @@ import {
   loginUserAction
 } from "./authAction";
 
-import { loadData, favData, setData, setError } from "./booksActions";
+import { loadData, setData, setError, setFavBooks, setFavBooksError, favData  } from "./booksActions";
 
 export {
   registerUserAction,
@@ -17,7 +17,9 @@ export {
   loginSuccess,
   loginUserAction,
   loadData,
-  favData,
   setData,
-  setError
+  setError,
+  setFavBooks,
+  setFavBooksError,
+  favData
 };

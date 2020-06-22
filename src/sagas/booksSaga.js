@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects"
 import { fetchBooks, fetchFav } from "../api"
-import { setData, setError, favData } from "../actions"
+import { setData, setError, setFavBooks, setFavBooksError } from "../actions"
 
 export function* handleBooksLoad() {
     try {
@@ -16,10 +16,12 @@ export function* handleBooksLoad() {
 export function* handleFavBooks() {
     try {
         const favBooks = yield call(fetchFav)
-        yield put(favData(favBooks))
+        
+        yield put(setFavBooks(favBooks))
 
     } catch (error) {
-        yield put(setError(error.toString()))
+        
+        yield put(setFavBooksError(error.toString()))
     }
 }
 

@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 class SingleBook extends Component {
   render() {
-    let book = this.props.state.books.favBooks.filter(
+    let book = this.props.state.favBooks.favBooks.filter(
       item => item._id === this.props.match.params.id
     );
 
@@ -24,8 +24,8 @@ class SingleBook extends Component {
       })
         .then(res => res.json())
         .then(data => {
-          swal("Done", "You have successfully removed this item", "success");
-          window.location = "/favorite-books";
+          swal("Done", "You have successfully removed this item", "success")
+          .then(() => window.location = "/favorite-books")
         });
     };
 

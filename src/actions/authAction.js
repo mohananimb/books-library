@@ -16,7 +16,6 @@ export const registerError = error => ({
 });
 
 export const loginUserAction = user => {
-  console.log("Action", user);
   
   return {
     type: types.LOGIN_USER,

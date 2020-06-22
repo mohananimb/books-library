@@ -12,8 +12,7 @@ const registerState = {
 };
 
 export const login = (state = loginState, action) => {
-  console.log("ACTION", action);
-  
+
   switch (action.type) {
     case types.LOGIN_USER:
       return {

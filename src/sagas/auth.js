@@ -18,18 +18,13 @@ export function* registerSaga(payload) {
 }
 
 export function* loginSaga(payload) {
-  console.log("Payload", payload);
   
-  console.log("Try");
   
   try {
     const response = yield call(loginUserService, payload);
-
-    console.log("Saga Log Response", response);
-
+    
     yield put(loginSuccess(response));
   } catch (error) {
-    console.log("Catch", error);
     
     yield put(loginError(error.toString()));
   }

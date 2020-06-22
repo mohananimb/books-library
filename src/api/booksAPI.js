@@ -9,7 +9,6 @@ const fetchBooks = async () => {
 };
 
 const fetchFav = async () => {
-    console.log("FET");
     
     const res = await fetch("http://localhost:5000/favorite-books", {
         method: "GET",
@@ -23,8 +22,7 @@ const fetchFav = async () => {
     }
 
     const data = await res.json()
-    console.log("dt", data);
-    
+   
     return data
 };
 
